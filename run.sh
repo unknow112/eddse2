@@ -23,6 +23,8 @@ python -m parsing.citation_contexts
 
 # PROCESSING -------------------------------------------------------------------
 python -m processing.0_fos
+bzip2 tmp/raw_data/fields_of_study.jsonl
+mv tmp/raw_data/fields_of_study.jsonl.bz2 tmp/raw_data/fields_of_study.jsonl
 python -m processing.1_paper_ids_by_lang
 python -m processing.2_paper_ids_by_fos
 python -m processing.3_paper_ids_has_abstract
