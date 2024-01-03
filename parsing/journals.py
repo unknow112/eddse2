@@ -21,7 +21,7 @@ def main():
     write_path = join_path(raw_data_path, "journals.jsonl")
     os.makedirs(raw_data_path, exist_ok=True)
 
-    with bz2.open(read_path, "rt") as f_in, open(write_path, "w") as f_out:
+    with bz2.open(read_path, "rt") as f_in, bz2.open(write_path, "wt") as f_out:
         journal = new_journal()
 
         for line in tqdm(
