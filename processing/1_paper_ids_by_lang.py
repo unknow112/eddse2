@@ -1,3 +1,4 @@
+import bz2  
 import json
 import os
 
@@ -18,7 +19,7 @@ def main():
 
     lang_doc_ids_dict = {x: [] for x in lang_list}
 
-    with open(langs_path, "r") as lang_f:
+    with bz2.open(langs_path, "rt") as lang_f:
         for line in tqdm(
             lang_f,
             mininterval=1.0,
