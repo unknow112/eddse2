@@ -1,4 +1,5 @@
 import json
+import bz2
 import os
 
 import click
@@ -46,7 +47,7 @@ def main(lang):
     fos_dict = {x["id"]: x for x in read_jsonl(fos_path)}
     doc_ids_by_fos_dict = {v: set() for v in fos_id_dict.values()}
 
-    with open(paper_fos_path, "r") as f_in:
+    with bz2.open(paper_fos_path, "rt") as f_in:
         for line in tqdm(
             f_in,
             mininterval=1.0,
