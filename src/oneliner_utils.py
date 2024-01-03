@@ -93,7 +93,7 @@ def write_jsonl(
 
 
 def read_jsonl(path: Union[str, Path], encoding: str = "utf-8") -> list[dict]:
-    with open(path, "r", encoding=encoding) as f:
+    with bz2.open(path, "rt", encoding=encoding) as f:
         x = [json.loads(line) for line in f]
     return x
 
