@@ -3,7 +3,7 @@ import bz2
 import os
 
 import click
-from src.oneliner_utils import join_path, read_jsonl, read_list, write_list
+from src.oneliner_utils import join_path, read_jsonl_iter, read_iterable
 from tqdm import tqdm
 
 fos_id_dict = {
@@ -43,31 +43,39 @@ def main(lang):
     paper_fos_path = join_path(raw_data_path, "paper_fields_of_study.jsonl")
     lang_doc_ids_path = join_path(doc_ids_by_lang_path, f"{lang}_doc_ids.txt")
 
-    lang_doc_ids = set(read_list(lang_doc_ids_path))
-    fos_dict = {x["id"]: x for x in read_jsonl(fos_path)}
-    doc_ids_by_fos_dict = {v: set() for v in fos_id_dict.values()}
+    lang_doc_ids = set(read_iterable(lang_doc_ids_path))
+    print("lang_doc_ids loaded OK")
+    fos_dict = {x["id"]: x for x in read_jsonl_iter(fos_path)}
+    print("fos_dict loaded OK")
 
-    with bz2.open(paper_fos_path, "rt") as f_in:
-        for line in tqdm(
-            f_in,
-            mininterval=1.0,
-            desc="Dividing doc ids by discipline",
-            dynamic_ncols=True,
-        ):
-            doc = json.loads(line)
-            doc_fos_id = doc["fos_id"]
-            fos_id = fos_dict[doc_fos_id]["level_0"]
+    doc_ids_by_fos_dict={}
+    try: 
+        for fos, fos_id in fos_id_dict.items():
+            dataset_path = join_path(lang_path, fos)
+            os.makedirs(dataset_path, exist_ok=True)
+            write_path = join_path(dataset_path, "doc_ids.txt.bz2")
+            doc_ids_by_fos_dict[fos_id] = bz2.open(write_path, "wt")
 
-            if doc["doc_id"] in lang_doc_ids and fos_id in doc_ids_by_fos_dict:
-                doc_ids_by_fos_dict[fos_id].add(doc["doc_id"])
+        with bz2.open(paper_fos_path, "rt") as f_in:
+            for line in tqdm(
+                f_in,
+                mininterval=1.0,
+                desc="Dividing doc ids by discipline",
+                dynamic_ncols=True,
+            ):
+                doc = json.loads(line)
+                doc_fos_id = doc["fos_id"]
+                fos_id = fos_dict[doc_fos_id]["level_0"]
 
-    for fos, doc_ids in zip(fos_id_dict.keys(), doc_ids_by_fos_dict.values()):
-        dataset_path = join_path(lang_path, fos)
-        os.makedirs(dataset_path, exist_ok=True)
-        write_path = join_path(dataset_path, "doc_ids.txt")
-        print(f"{fos} {len(doc_ids)}")
-        write_list(list(doc_ids), write_path)
+                if doc["doc_id"] in lang_doc_ids and fos_id in doc_ids_by_fos_dict:
+                    print(doc["doc_id"], file=doc_ids_by_fos_dict[fos_id], flush=False)
+    
+    finally:
+        for f in doc_ids_by_fos_dict.values():
+            f.close()
 
 
 if __name__ == "__main__":
     main()
+
+# TODO: add stage 2.1 where the doc_ids per field of study get unzipped and removed duplicates
