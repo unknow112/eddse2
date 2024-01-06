@@ -77,5 +77,3 @@ def main(lang):
 
 if __name__ == "__main__":
     main()
-
-# TODO: add stage 2.1 where the doc_ids per field of study get unzipped and removed duplicates
