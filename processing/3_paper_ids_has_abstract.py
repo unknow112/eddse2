@@ -1,7 +1,6 @@
 import json
 import os
 import bz2
-import gc
 
 import click
 from src.oneliner_utils import join_path, read_list, write_list
@@ -52,8 +51,6 @@ def main(lang):
             if len(abstract["text"]) > 0:
                 abstract_ids.add(abstract["doc_id"])
 
-    print("gc: unreachable", gc.collect())
-
     for fos in fos_list:
         print(fos, end='', flush=True)
         dataset_path = join_path(lang_path, fos)
@@ -65,7 +62,6 @@ def main(lang):
         write_path = join_path(dataset_path, "doc_ids.txt")
         print(f" {len(doc_ids)}")
         write_list(list(set.intersection(doc_ids, abstract_ids)), write_path)
-        print("gc: unreachable", gc.collect())
 
 
 if __name__ == "__main__":
