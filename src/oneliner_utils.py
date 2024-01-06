@@ -6,6 +6,7 @@ import os
 import pickle
 import random
 import sys
+from typing import Iterable
 from pathlib import Path
 from typing import Any, Generator, Union
 from urllib.request import urlretrieve
@@ -71,6 +72,12 @@ def read_list(path: Union[str, Path], encoding: str = "utf-8") -> list[str]:
     return x
 
 
+def read_iterable(path: Union[str, Path], encoding: str = "utf-8") -> Iterable[str]:
+    with open(path, "r", encoding=encoding) as f:
+        for x in f:
+            yield x.strip()
+
+
 def write_json(
     x: dict, path: Union[str, Path], encoding: str = "utf-8"
 ) -> None:
@@ -96,6 +103,12 @@ def read_jsonl(path: Union[str, Path], encoding: str = "utf-8") -> list[dict]:
     with bz2.open(path, "rt", encoding=encoding) as f:
         x = [json.loads(line) for line in f]
     return x
+
+
+def read_jsonl_iter(path: Union[str, Path], encoding: str = "utf-8") -> Iterable[dict]:
+    with bz2.open(path, "rt", encoding=encoding) as f:
+        for line in f:
+            yield json.loads(line)
 
 
 def write_csv(
