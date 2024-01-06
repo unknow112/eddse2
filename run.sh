@@ -27,6 +27,7 @@ bzip2 tmp/raw_data/fields_of_study.jsonl
 mv tmp/raw_data/fields_of_study.jsonl.bz2 tmp/raw_data/fields_of_study.jsonl
 python -m processing.1_paper_ids_by_lang
 python -m processing.2_paper_ids_by_fos
+bash processing/2.1_paper_decompress
 python -m processing.3_paper_ids_has_abstract
 python -m processing.4_paper_ids_has_date
 python -m processing.6_paper_ids_has_author
