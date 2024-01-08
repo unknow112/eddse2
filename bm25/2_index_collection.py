@@ -23,7 +23,7 @@ from src.oneliner_utils import join_path
 )
 def main(lang, fos, threads):
     # Create connection with Elasticsearch
-    es_client = Elasticsearch(timeout=180)
+    es_client = Elasticsearch(hosts=os.getenv("ES_ENDPOINT"),timeout=180)
 
     # Index collection from JSONl
     index_jsonl(

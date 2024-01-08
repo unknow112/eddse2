@@ -1,4 +1,5 @@
 import json
+import os
 
 import click
 from elasticsearch import Elasticsearch
@@ -23,7 +24,7 @@ def main(lang, fos):
     final_dataset_path = join_path("datasets", lang, fos)
 
     # Create connection with Elasticsearch
-    es_client = Elasticsearch(timeout=180)
+    es_client = Elasticsearch(hosts=os.getenv("ES_ENDPOINT"),timeout=180)
 
     # Load bm25 config
     bm25_config_path = join_path(final_dataset_path, "bm25_config.json")
