@@ -1,8 +1,9 @@
 import json
 from collections import defaultdict
+import bz2
 
 import click
-from src.oneliner_utils import join_path, read_jsonl
+from src.oneliner_utils import join_path, read_jsonl, read_jsonl_plain
 from tqdm import tqdm
 
 
@@ -21,7 +22,7 @@ def get_authors(lang: str, fos: str):
 
     # --------------------------------------------------------------------------
     paper_authors_dict = {
-        x["doc_id"]: x for x in read_jsonl(paper_authors_path)
+        x["doc_id"]: x for x in read_jsonl_plain(paper_authors_path)
     }
 
     with open(papers_path, "r") as papers_f:
@@ -40,7 +41,7 @@ def get_authors(lang: str, fos: str):
     author_ids = set(author_papers_dict)
 
     # Filter authors -----------------------------------------------------------
-    with open(authors_path, "r") as authors_f, open(write_path, "w") as f_out:
+    with bz2.open(authors_path, "rt") as authors_f, open(write_path, "w") as f_out:
         for line in tqdm(
             authors_f,
             mininterval=1.0,
