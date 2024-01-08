@@ -7,7 +7,7 @@ from elasticsearch import Elasticsearch
 from optuna.samplers import TPESampler
 from ranx import Qrels, Run, evaluate
 from src.elasticsearch_utils import msearch, set_bm25
-from src.oneliner_utils import join_path, read_jsonl, write_json
+from src.oneliner_utils import join_path, read_jsonl_plain as read_jsonl, write_json
 
 
 @click.command()
