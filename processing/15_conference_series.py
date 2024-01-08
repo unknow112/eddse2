@@ -1,5 +1,6 @@
 import json
 from multiprocessing import Pool
+import bz2
 
 import click
 from src.oneliner_utils import join_path, read_jsonl, write_jsonl
@@ -20,7 +21,7 @@ def get_conference_series(lang: str, fos: str, prog_bar_position: int):
 
     conference_serie_ids = set()
 
-    with open(papers_path, "r") as papers_f:
+    with bz2.open(papers_path, "rt") as papers_f:
         for line in tqdm(
             papers_f,
             mininterval=1.0,
