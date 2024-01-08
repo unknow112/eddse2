@@ -17,7 +17,7 @@ services:
     entrypoint: 
       - bash 
       - -c 
-      - "while true; do sleep 10 ; echo again ; done"
+      - "while true; do sleep 10 ; done"
     
 
 volumes:
