@@ -1,5 +1,6 @@
 import json
 from multiprocessing import Pool
+import bz2
 
 import click
 from src.oneliner_utils import join_path, read_jsonl, read_list
@@ -45,7 +46,7 @@ def get_paper_fos(lang: str, fos: str, prog_bar_position: int):
     fos_dict = {x["id"]: x for x in read_jsonl(fos_path)}
     doc_ids = set(read_list(doc_ids_path))
 
-    with open(paper_fos_path, "r") as paper_fos_f, open(
+    with bz2.open(paper_fos_path, "rt") as paper_fos_f, open(
         write_path, "w"
     ) as f_out:
         for line in tqdm(
