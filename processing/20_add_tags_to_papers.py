@@ -2,7 +2,7 @@ import json
 import os
 
 import click
-from src.oneliner_utils import join_path, read_jsonl
+from src.oneliner_utils import join_path, read_jsonl_plain
 from tqdm import tqdm
 
 
@@ -18,7 +18,7 @@ def add_tags(lang: str, fos: str):
     tags_path = join_path(dataset_path, "paper_tags.jsonl")
     collection_path = join_path(final_dataset_path, "collection.jsonl")
 
-    papers_dict = {x["id"]: x for x in read_jsonl(collection_path)}
+    papers_dict = {x["id"]: x for x in read_jsonl_plain(collection_path)}
 
     with open(tags_path, "r") as tags_f, open(collection_path, "w") as write_f:
         for line in tqdm(
