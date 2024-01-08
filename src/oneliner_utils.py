@@ -104,6 +104,11 @@ def read_jsonl(path: Union[str, Path], encoding: str = "utf-8") -> list[dict]:
         x = [json.loads(line) for line in f]
     return x
 
+def read_jsonl_plain(path: Union[str, Path], encoding: str = "utf-8") -> list[dict]:
+    with open(path, "r", encoding=encoding) as f:
+        x = [json.loads(line) for line in f]
+    return x
+
 
 def read_jsonl_iter(path: Union[str, Path], encoding: str = "utf-8") -> Iterable[dict]:
     with bz2.open(path, "rt", encoding=encoding) as f:
