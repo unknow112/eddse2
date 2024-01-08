@@ -1,5 +1,6 @@
 import json
 from multiprocessing import Pool
+import bz2
 
 import click
 from src.oneliner_utils import join_path, read_list
@@ -20,7 +21,7 @@ def get_paper_authors(lang: str, fos: str, prog_bar_position: int):
 
     doc_ids = set(read_list(doc_ids_path))
 
-    with open(affiliations_path, "r") as affiliations_f, open(
+    with bz2.open(affiliations_path, "rt") as affiliations_f, open(
         write_path, "w"
     ) as f_out:
         for line in tqdm(
