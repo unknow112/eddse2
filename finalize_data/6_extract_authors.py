@@ -1,7 +1,7 @@
 from collections import defaultdict
 
 import click
-from src.oneliner_utils import join_path, read_jsonl, write_jsonl
+from src.oneliner_utils import join_path,  read_jsonl_plain as read_jsonl, write_jsonl
 
 
 def load_authors(dataset_path: str):
