@@ -1,10 +1,10 @@
 import click
-from src.oneliner_utils import join_path,  read_jsonl_plain, read_jsonl, write_jsonl
+from src.oneliner_utils import join_path, read_jsonl_plain, read_jsonl, write_jsonl
 
 
 def load_authors(dataset_path: str):
-    authors_path = read_jsonl_plain(dataset_path, "authors.jsonl")
-    return read_jsonl(authors_path)
+    authors_path = join_path(dataset_path, "authors.jsonl")
+    return read_jsonl_plain(authors_path)
 
 
 def load_affiliations(raw_data_path: str):
