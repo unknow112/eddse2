@@ -1,5 +1,5 @@
 import click
-from src.oneliner_utils import join_path, read_jsonl_plain as read_jsonl, write_jsonl
+from src.oneliner_utils import join_path, read_jsonl_plain, read_jsonl, write_jsonl
 
 
 @click.command()
@@ -18,7 +18,7 @@ def main(lang, fos):
     journals_path = join_path(raw_data_path, "journals.jsonl")
 
     print("Loading collection")
-    docs = read_jsonl(collection_path)
+    docs = read_jsonl_plain(collection_path)
 
     print("Loading conference instances")
     conference_instances = read_jsonl(conference_instances_path)
