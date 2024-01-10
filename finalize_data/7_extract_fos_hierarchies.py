@@ -1,5 +1,5 @@
 import click
-from src.oneliner_utils import join_path,  read_jsonl_plain as read_jsonl, write_jsonl
+from src.oneliner_utils import join_path,  read_jsonl_plain, read_jsonl, write_jsonl
 
 level_0_fos = {
     "95457728",  # History
@@ -78,7 +78,7 @@ def main(lang, fos):
     collection_path = join_path(final_dataset_path, "collection.jsonl")
 
     print("Loading collection")
-    collection = read_jsonl(collection_path)
+    collection = read_jsonl_plain(collection_path)
     fos_list = {x for doc in collection for x in doc["fields_of_study"]}
 
     print("Loading FoS relations data")
