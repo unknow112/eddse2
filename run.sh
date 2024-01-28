@@ -1,3 +1,6 @@
+#!/bin/bash
+set -xe
+
 # Create datasets folder
 mkdir -p datasets
 
@@ -5,21 +8,23 @@ mkdir -p datasets
 fos="computer_science physics political_science psychology"
 
 # PARSING ----------------------------------------------------------------------
-python -m parsing.abstracts
-python -m parsing.affiliations
-python -m parsing.authors
-python -m parsing.conference_instances
-python -m parsing.conference_series
-python -m parsing.field_of_study_children
-python -m parsing.fields_of_study
-python -m parsing.journals
-python -m parsing.paper_authors
-python -m parsing.paper_field_of_study
-python -m parsing.paper_languages
-python -m parsing.paper_references
-python -m parsing.paper_tags
-python -m parsing.papers
-python -m parsing.citation_contexts
+parallel -L 1 python -m  <<EOF
+    parsing.abstracts
+    parsing.affiliations
+    parsing.authors
+    parsing.conference_instances
+    parsing.conference_series
+    parsing.field_of_study_children
+    parsing.fields_of_study
+    parsing.journals
+    parsing.paper_authors
+    parsing.paper_field_of_study
+    parsing.paper_languages
+    parsing.paper_references
+    parsing.paper_tags
+    parsing.papers
+    parsing.citation_contexts
+EOF
 
 # PROCESSING -------------------------------------------------------------------
 python -m processing.0_fos
@@ -27,11 +32,11 @@ bzip2 tmp/raw_data/fields_of_study.jsonl
 mv tmp/raw_data/fields_of_study.jsonl.bz2 tmp/raw_data/fields_of_study.jsonl
 python -m processing.1_paper_ids_by_lang
 python -m processing.2_paper_ids_by_fos
-bash processing/2.1_paper_decompress
+bash processing/2.1_paper_decompress.sh
 python -m processing.3_paper_ids_has_abstract
-python -m processing.4_paper_ids_has_date
-python -m processing.6_paper_ids_has_author
-python -m processing.7_paper_ids_has_tags
+bash processing/4_paper_ids_has_date.sh
+bash processing/6_paper_ids_has_author.sh
+bash processing/7_paper_ids_has_tags.sh
 python -m processing.8_paper_ids_is_referenced $fos
 
 python -m processing.9_papers $fos
