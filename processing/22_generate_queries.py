@@ -79,9 +79,7 @@ def add_user_docs(dataset_path, queries):
 
     # Sanity check
     for q in queries:
-        assert (
-            q["id"] not in q["user_doc_ids"]
-        ), "Error: query_id in user_doc_ids"
+        assert q["id"] not in q["user_doc_ids"], "Error: query_id in user_doc_ids"
 
     return queries
 
@@ -94,9 +92,7 @@ def add_user(dataset_path, queries):
 
     return [
         x | {"user_id": paper_author_dict.get(x["id"], False)}
-        for x in tqdm(
-            queries, desc="Adding users", mininterval=1.0, dynamic_ncols=True
-        )
+        for x in tqdm(queries, desc="Adding users", mininterval=1.0, dynamic_ncols=True)
     ]
 
 

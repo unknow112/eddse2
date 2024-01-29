@@ -21,9 +21,7 @@ def get_authors(lang: str, fos: str):
     write_path = join_path(dataset_path, "authors.jsonl")
 
     # --------------------------------------------------------------------------
-    paper_authors_dict = {
-        x["doc_id"]: x for x in read_jsonl_plain(paper_authors_path)
-    }
+    paper_authors_dict = {x["doc_id"]: x for x in read_jsonl_plain(paper_authors_path)}
 
     with open(papers_path, "r") as papers_f:
         for line in papers_f:

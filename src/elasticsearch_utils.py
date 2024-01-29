@@ -173,25 +173,19 @@ def msearch(
         pbar.update(len(chunk))
     pbar.close()
 
-    results = [
-        [(x["_source"]["id"], x["_score"]) for x in res] for res in results
-    ]
+    results = [[(x["_source"]["id"], x["_score"]) for x in res] for res in results]
 
     return results
 
 
 def set_bm25(es_client, index_name, b=0.75, k1=1.2):
-    es_client.indices.close(
-        index=index_name, wait_for_active_shards="index-setting"
-    )
+    es_client.indices.close(index=index_name, wait_for_active_shards="index-setting")
 
     es_client.indices.put_settings(
         index=index_name,
         body={
             "index": {
-                "similarity": {
-                    "ranking_function": {"type": "BM25", "b": b, "k1": k1}
-                }
+                "similarity": {"ranking_function": {"type": "BM25", "b": b, "k1": k1}}
             }
         },
     )

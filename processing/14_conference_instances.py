@@ -15,9 +15,7 @@ def get_conference_instances(lang: str, fos: str, prog_bar_position: int):
 
     # File paths
     papers_path = join_path(dataset_path, "papers.jsonl")
-    conference_instances_path = join_path(
-        raw_data_path, "conference_instances.jsonl"
-    )
+    conference_instances_path = join_path(raw_data_path, "conference_instances.jsonl")
     write_path = join_path(dataset_path, "conference_instances.jsonl")
 
     conference_instance_ids = set()

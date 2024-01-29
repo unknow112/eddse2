@@ -52,7 +52,7 @@ def main(lang):
                 abstract_ids.add(abstract["doc_id"])
 
     for fos in fos_list:
-        print(fos, end='', flush=True)
+        print(fos, end="", flush=True)
         dataset_path = join_path(lang_path, fos)
         doc_ids_path = join_path(dataset_path, "doc_ids.txt")
         doc_ids = set(read_list(doc_ids_path))

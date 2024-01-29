@@ -33,9 +33,7 @@ def load_paper_dates(dataset_path):
 def filter_relevants(paper_date_dict, queries, timestamp, min_rel):
     for q in queries:
         q["rel_doc_ids"] = [
-            doc_id
-            for doc_id in q["rel_doc_ids"]
-            if paper_date_dict[doc_id] < timestamp
+            doc_id for doc_id in q["rel_doc_ids"] if paper_date_dict[doc_id] < timestamp
         ]
 
     return [q for q in queries if len(q["rel_doc_ids"]) >= min_rel]
@@ -71,9 +69,7 @@ def main(lang, fos, min_rel, min_user_docs, year):
     queries = load_test_queries(dataset_path)
 
     queries = filter_relevants(paper_date_dict, queries, timestamp, min_rel)
-    queries = filter_user_docs(
-        paper_date_dict, queries, timestamp, min_user_docs
-    )
+    queries = filter_user_docs(paper_date_dict, queries, timestamp, min_user_docs)
 
     save_test_queries(dataset_path, queries)
 

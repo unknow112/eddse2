@@ -1,7 +1,7 @@
 from collections import defaultdict
 
 import click
-from src.oneliner_utils import join_path,  read_jsonl_plain as read_jsonl, write_jsonl
+from src.oneliner_utils import join_path, read_jsonl_plain as read_jsonl, write_jsonl
 
 
 def load_authors(dataset_path: str):
@@ -16,9 +16,7 @@ def load_doc_ids(dataset_path: str):
 
 def filter_authors(authors, paper_authors):
     doc_ids = {d["doc_id"] for d in paper_authors}
-    author_ids = {
-        author_id for d in paper_authors for author_id in d["author_ids"]
-    }
+    author_ids = {author_id for d in paper_authors for author_id in d["author_ids"]}
 
     authors = [x for x in authors if x["id"] in author_ids]
 

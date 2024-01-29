@@ -35,7 +35,7 @@ def main(lang, fos, samples):
     bm25_config_path = join_path(final_dataset_path, "bm25_config.json")
 
     # Create connection with Elasticsearch
-    es_client = Elasticsearch(hosts=os.getenv("ES_ENDPOINT"),timeout=180)
+    es_client = Elasticsearch(hosts=os.getenv("ES_ENDPOINT"), timeout=180)
 
     # Load train queries
     train_queries = read_jsonl(train_queries_path)

@@ -48,8 +48,8 @@ def main(lang):
     fos_dict = {x["id"]: x for x in read_jsonl_iter(fos_path)}
     print("fos_dict loaded OK")
 
-    doc_ids_by_fos_dict={}
-    try: 
+    doc_ids_by_fos_dict = {}
+    try:
         for fos, fos_id in fos_id_dict.items():
             dataset_path = join_path(lang_path, fos)
             os.makedirs(dataset_path, exist_ok=True)
@@ -69,7 +69,7 @@ def main(lang):
 
                 if doc["doc_id"] in lang_doc_ids and fos_id in doc_ids_by_fos_dict:
                     print(doc["doc_id"], file=doc_ids_by_fos_dict[fos_id], flush=False)
-    
+
     finally:
         for f in doc_ids_by_fos_dict.values():
             f.close()

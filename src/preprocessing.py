@@ -32,9 +32,7 @@ def strip_acronyms(x):
 
 from string import punctuation
 
-special_chars_trans = dict(
-    [(ord(x), ord(y)) for x, y in zip(u"‘’´“”–-", u"'''\"\"--")]
-)
+special_chars_trans = dict([(ord(x), ord(y)) for x, y in zip("‘’´“”–-", "'''\"\"--")])
 
 
 def normalize_special_chars(x):

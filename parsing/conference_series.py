@@ -47,9 +47,7 @@ def main():
                 conference_serie["id"] = id
 
             if "name" in predicate:
-                conference_serie["name"] = normalize_str(
-                    predicate.split('"')[1]
-                )
+                conference_serie["name"] = normalize_str(predicate.split('"')[1])
 
         f_out.write(json.dumps(conference_serie) + "\n")
 

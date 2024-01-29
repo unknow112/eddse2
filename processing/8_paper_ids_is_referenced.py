@@ -56,7 +56,8 @@ def get_doc_ids(lang: str, fos: str):
                 rel_doc_ids = set(
                     x
                     for x in rel_doc_ids
-                    if x in doc_ids_with_timestamps and doc_ids_with_timestamps[x] < date
+                    if x in doc_ids_with_timestamps
+                    and doc_ids_with_timestamps[x] < date
                 )
 
                 paper_references_dict[doc_id] = rel_doc_ids

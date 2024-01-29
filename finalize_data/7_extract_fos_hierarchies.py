@@ -1,5 +1,5 @@
 import click
-from src.oneliner_utils import join_path,  read_jsonl_plain, read_jsonl, write_jsonl
+from src.oneliner_utils import join_path, read_jsonl_plain, read_jsonl, write_jsonl
 
 level_0_fos = {
     "95457728",  # History
@@ -72,9 +72,7 @@ def main(lang, fos):
     final_dataset_path = join_path("datasets", lang, fos)
 
     # File paths
-    fos_children_path = join_path(
-        raw_data_path, "field_of_study_children.jsonl"
-    )
+    fos_children_path = join_path(raw_data_path, "field_of_study_children.jsonl")
     collection_path = join_path(final_dataset_path, "collection.jsonl")
 
     print("Loading collection")

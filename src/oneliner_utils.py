@@ -58,9 +58,7 @@ def read(path: Union[str, Path], encoding: str = "utf-8") -> str:
     return x
 
 
-def write_list(
-    x: list[str], path: Union[str, Path], encoding: str = "utf-8"
-) -> None:
+def write_list(x: list[str], path: Union[str, Path], encoding: str = "utf-8") -> None:
     with open(path, "w", encoding=encoding) as f:
         for y in x:
             f.write(y + "\n")
@@ -78,9 +76,7 @@ def read_iterable(path: Union[str, Path], encoding: str = "utf-8") -> Iterable[s
             yield x.strip()
 
 
-def write_json(
-    x: dict, path: Union[str, Path], encoding: str = "utf-8"
-) -> None:
+def write_json(x: dict, path: Union[str, Path], encoding: str = "utf-8") -> None:
     with open(path, "w", encoding=encoding) as f:
         f.write(json.dumps(x, indent=4))
 
@@ -91,9 +87,7 @@ def read_json(path: Union[str, Path], encoding: str = "utf-8") -> dict:
     return x
 
 
-def write_jsonl(
-    x: list[dict], path: Union[str, Path], encoding: str = "utf-8"
-) -> None:
+def write_jsonl(x: list[dict], path: Union[str, Path], encoding: str = "utf-8") -> None:
     with open(path, "w", encoding=encoding) as f:
         for y in x:
             f.write(json.dumps(y) + "\n")
@@ -103,6 +97,7 @@ def read_jsonl(path: Union[str, Path], encoding: str = "utf-8") -> list[dict]:
     with bz2.open(path, "rt", encoding=encoding) as f:
         x = [json.loads(line) for line in f]
     return x
+
 
 def read_jsonl_plain(path: Union[str, Path], encoding: str = "utf-8") -> list[dict]:
     with open(path, "r", encoding=encoding) as f:
@@ -199,7 +194,7 @@ def chunk_by_size_generator(x: list, n: int) -> Generator:
 
 
 # OTHER ========================================================================
-def count_lines(path: str, encoding: str="utf-8") -> int:
+def count_lines(path: str, encoding: str = "utf-8") -> int:
     """Counts the number of lines in a file."""
     if encoding == "utf-8":
         return sum(1 for _ in open(path))
@@ -207,13 +202,16 @@ def count_lines(path: str, encoding: str="utf-8") -> int:
         return sum(1 for _ in bz2.open(path, "rt"))
 
 
-def download(
-    url: str, path: str, show_progress: bool = True, desc: str = "Download"
-):
+def download(url: str, path: str, show_progress: bool = True, desc: str = "Download"):
     if not show_progress:
         urlretrieve(url, path)
     else:
-        pbar = tqdm(desc=desc, position=0, dynamic_ncols=True, mininterval=1.0,)
+        pbar = tqdm(
+            desc=desc,
+            position=0,
+            dynamic_ncols=True,
+            mininterval=1.0,
+        )
 
         previous_block_num = [0]
 

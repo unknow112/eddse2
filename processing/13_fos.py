@@ -46,9 +46,7 @@ def get_paper_fos(lang: str, fos: str, prog_bar_position: int):
     fos_dict = {x["id"]: x for x in read_jsonl(fos_path)}
     doc_ids = set(read_list(doc_ids_path))
 
-    with bz2.open(paper_fos_path, "rt") as paper_fos_f, open(
-        write_path, "w"
-    ) as f_out:
+    with bz2.open(paper_fos_path, "rt") as paper_fos_f, open(write_path, "w") as f_out:
         for line in tqdm(
             paper_fos_f,
             mininterval=1.0,

@@ -43,9 +43,7 @@ def main(lang, fos):
             for line in f_in:
                 query = json.loads(line)
 
-                qrels[query["id"]] = {
-                    doc_id: 1 for doc_id in query["rel_doc_ids"]
-                }
+                qrels[query["id"]] = {doc_id: 1 for doc_id in query["rel_doc_ids"]}
 
                 pbar.update(1)
 

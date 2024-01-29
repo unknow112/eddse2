@@ -24,7 +24,7 @@ def main(lang, fos):
     final_dataset_path = join_path("datasets", lang, fos)
 
     # Create connection with Elasticsearch
-    es_client = Elasticsearch(hosts=os.getenv("ES_ENDPOINT"),timeout=180)
+    es_client = Elasticsearch(hosts=os.getenv("ES_ENDPOINT"), timeout=180)
 
     # Load bm25 config
     bm25_config_path = join_path(final_dataset_path, "bm25_config.json")
@@ -90,14 +90,10 @@ def main(lang, fos):
                     queries = [x for x in chunk if len(x["rel_doc_ids"]) > 0]
 
                     # Remove queries with less than 10 results retrieved by BM25
-                    queries = [
-                        x for x in queries if len(x["bm25_doc_ids"]) >= 10
-                    ]
+                    queries = [x for x in queries if len(x["bm25_doc_ids"]) >= 10]
 
                     # Write queries --------------------------------------------
-                    f_out.write(
-                        "\n".join(json.dumps(x) for x in queries) + "\n"
-                    )
+                    f_out.write("\n".join(json.dumps(x) for x in queries) + "\n")
 
                     pbar.update(len(chunk))
                     chunk = []

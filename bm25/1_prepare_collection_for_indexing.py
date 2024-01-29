@@ -21,9 +21,7 @@ def prepare_document(doc):
 
 def prepare_collection(lang, fos, threads):
     read_path = join_path("datasets", lang, fos, "collection.jsonl")
-    write_path = join_path(
-        "tmp", "datasets", lang, fos, "bm25_collection.jsonl"
-    )
+    write_path = join_path("tmp", "datasets", lang, fos, "bm25_collection.jsonl")
 
     n_lines = count_lines(read_path)
     chunk_size = 100
@@ -43,9 +41,7 @@ def prepare_collection(lang, fos, threads):
     ) as p:
         while remaining_lines > 0:
             # Read lines chunk
-            chunk = [
-                f_in.readline() for _ in range(min(chunk_size, remaining_lines))
-            ]
+            chunk = [f_in.readline() for _ in range(min(chunk_size, remaining_lines))]
 
             docs = p.map(prepare_document, chunk)
 

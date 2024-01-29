@@ -9,9 +9,7 @@ def load_authors(dataset_path: str):
 
 def load_affiliations(raw_data_path: str):
     affiliations_path = join_path(raw_data_path, "affiliations.jsonl")
-    return {
-        x["id"]: x | {"user_ids": []} for x in read_jsonl(affiliations_path)
-    }
+    return {x["id"]: x | {"user_ids": []} for x in read_jsonl(affiliations_path)}
 
 
 def filter_authors(authors, docs):

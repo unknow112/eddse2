@@ -1,7 +1,7 @@
 from collections import defaultdict
 
 import click
-from src.oneliner_utils import join_path,  read_jsonl_plain as read_jsonl, write_jsonl
+from src.oneliner_utils import join_path, read_jsonl_plain as read_jsonl, write_jsonl
 
 
 def load_collection(dataset_path: str):
@@ -42,9 +42,7 @@ def get_in_and_out_refs(docs: list, references: list[dict]):
             "doc_ids": rel_doc_ids,
         }
 
-    in_references = [
-        {"doc_id": k, "in_refs": v} for k, v in in_references.items()
-    ]
+    in_references = [{"doc_id": k, "in_refs": v} for k, v in in_references.items()]
 
     out_references = [
         {"doc_id": k, "timestamp": v["timestamp"], "out_refs": v["doc_ids"]}

@@ -48,13 +48,9 @@ def main():
                 conference_instance["id"] = id
 
             if "name" in predicate:
-                conference_instance["name"] = normalize_str(
-                    predicate.split('"')[1]
-                )
+                conference_instance["name"] = normalize_str(predicate.split('"')[1])
             elif "isPartOf" in predicate:
-                conference_instance["conference_series_id"] = object.split("/")[
-                    -1
-                ]
+                conference_instance["conference_series_id"] = object.split("/")[-1]
 
         f_out.write(json.dumps(conference_instance) + "\n")
 

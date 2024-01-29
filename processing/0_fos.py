@@ -33,9 +33,7 @@ def get_level_0_fos(parent_id, fos_children_dict):
 def main():
     raw_data_path = join_path("tmp", "raw_data")
     fos_path = join_path(raw_data_path, "fields_of_study.jsonl")
-    fos_children_path = join_path(
-        raw_data_path, "field_of_study_children.jsonl"
-    )
+    fos_children_path = join_path(raw_data_path, "field_of_study_children.jsonl")
 
     print("Load data")
     fos_list = read_jsonl(fos_path)

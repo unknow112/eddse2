@@ -74,22 +74,16 @@ def main():
                     paper["ref_count"] = int(predicate.split('"')[1])
                 elif "publicationDate" in predicate:
                     paper["publication_date"] = predicate.split('"')[1]
-                    paper["timestamp"] = date_to_timestamp(
-                        paper["publication_date"]
-                    )
+                    paper["timestamp"] = date_to_timestamp(paper["publication_date"])
                 elif "issueIdentifier" in predicate:
                     paper["issue_id"] = predicate.split('"')[1]
                 elif "volume" in predicate:
                     paper["volume"] = predicate.split('"')[1]
                 elif "publisher" in predicate:
                     try:
-                        paper["publisher"] = normalize_str(
-                            predicate.split('"')[1]
-                        )
+                        paper["publisher"] = normalize_str(predicate.split('"')[1])
                     except:
-                        paper["publisher"] = " ".join(
-                            object.split("/")[-1].split("_")
-                        )
+                        paper["publisher"] = " ".join(object.split("/")[-1].split("_"))
                 elif "title" in predicate and paper["title"] == "":
                     paper["title"] = normalize_str(predicate.split('"')[1])
                 elif "doi" in predicate:

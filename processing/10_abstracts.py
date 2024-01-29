@@ -21,9 +21,7 @@ def get_abstracts_by_fos(lang: str, fos: str, prog_bar_position: int):
 
     doc_ids = set(read_list(doc_ids_path))
 
-    with bz2.open(abstracts_path, "rt") as abstracts_f, open(
-        write_path, "w"
-    ) as f_out:
+    with bz2.open(abstracts_path, "rt") as abstracts_f, open(write_path, "w") as f_out:
         for line in tqdm(
             abstracts_f,
             mininterval=1.0,
